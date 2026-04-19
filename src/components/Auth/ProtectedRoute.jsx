@@ -1,11 +1,13 @@
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
+// Guest mode is always the fallback — no redirect to login.
+// Authenticated users get full access; unauthenticated users are treated as guests.
 export default function ProtectedRoute({ children }) {
-  const { user, loading } = useAuth();
-  const location = useLocation();
+  const { loading } = useAuth();
 
+  // Show a brief spinner only while Firebase resolves auth state.
+  // AuthContext enforces a 3-second max so this never hangs in production.
   if (loading) {
     return (
       <div style={{ 
@@ -19,16 +21,12 @@ export default function ProtectedRoute({ children }) {
       }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ marginBottom: '1rem', fontSize: '24px' }}>✈</div>
-          <p>Authenticating Controller...</p>
+          <p>Loading ATC...</p>
         </div>
       </div>
     );
   }
 
-  if (!user) {
-    // Redirect to login but save the current location they were trying to go to
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
+  // Always render — guests land on the dashboard too
   return children;
 }

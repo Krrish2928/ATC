@@ -35,7 +35,15 @@ export function AuthProvider({ children }) {
   };
 
   useEffect(() => {
+    // Hard timeout: if Firebase hasn't resolved in 3 seconds, unblock the app.
+    // This prevents a permanent white screen in production (Vercel) when
+    // Firebase Auth is slow to initialize on cold starts.
+    const authTimeout = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      clearTimeout(authTimeout); // Firebase resolved — cancel the timeout
       setCurrentUser(user);
       if (user) {
         await refreshProfile(user);
@@ -45,7 +53,10 @@ export function AuthProvider({ children }) {
       setLoading(false);
     });
 
-    return unsubscribe;
+    return () => {
+      clearTimeout(authTimeout);
+      unsubscribe();
+    };
   }, []);
 
   const value = {
@@ -61,7 +72,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }
