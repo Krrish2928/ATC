@@ -1,5 +1,5 @@
-const BASE_URL = 'http://localhost:8000/api';
-const WS_URL = 'ws://localhost:8000/ws/flights';
+const BASE_URL = 'https://atc-ibed.onrender.com/api';
+const WS_URL = 'wss://atc-ibed.onrender.com/ws/flights';
 
 /**
  * ATC Backend API Service
