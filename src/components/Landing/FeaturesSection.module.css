@@ -1,0 +1,114 @@
+.section {
+  padding: 120px 0;
+  position: relative;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+
+.heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+.accent {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sub {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* Cards grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  position: relative;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  overflow: hidden;
+  transition: border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card:hover {
+  border-color: var(--color-border-glow);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.35), 0 0 0 1px rgba(77,159,255,0.12);
+}
+
+.card:hover .cardGlow {
+  opacity: 1;
+}
+
+/* Icon */
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: rgba(77,159,255,0.1);
+  border: 1px solid rgba(77,159,255,0.2);
+  color: var(--color-accent);
+  margin-bottom: 24px;
+  transition: background var(--transition-base), border-color var(--transition-base);
+}
+
+.card:hover .iconWrap {
+  background: rgba(77,159,255,0.18);
+  border-color: rgba(77,159,255,0.4);
+}
+
+.cardTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--color-text);
+}
+
+.cardDesc {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* Bottom glow */
+.cardGlow {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(77,159,255,0.25), transparent 70%);
+  filter: blur(16px);
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+}
+@media (min-width: 600px) and (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+}

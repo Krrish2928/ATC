@@ -1,0 +1,29 @@
+# Environment variables and secrets
+.env
+.env.local
+.env.production
+backend/.env
+
+# Firebase credentials
+firebase-credentials.json
+*firebase*.json
+
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Node
+node_modules/
+dist/
+
+# Vite
+.vite/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
